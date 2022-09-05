@@ -1,0 +1,103 @@
+.coinflip-layout{
+    max-width: 1920px;
+    margin-inline: auto;
+    margin-top: 4rem;
+    padding-inline: 2rem;
+}
+.coinflip-layout > .row {
+    margin-top: 1rem;
+    gap: 1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+.coinflip-layout .screen-container{
+    flex-grow: 1;
+    display: flex;
+    border: 4px solid #474747;
+    padding: 4px;
+    background-color: #999999;
+}
+.coinflip-layout .screen {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+
+    width: 100%;
+    background: #999999;
+    border: 4px inset #BFBFBF;
+}
+.coinflip-layout .bet-amount-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    background-color: #999999;
+    padding: 16px;
+    flex-grow: 2;
+    border: 0.1em solid #474747;
+}
+.bet-min-max-buttons, .bet-input-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.coinflip-layout .bet-amount-container button,
+.coinflip-layout .bet-amount-container span,
+.coinflip-layout .bet-amount-container input{
+    font-family: 'OpenSansPX', sans-serif;
+    font-size: 3rem;
+}
+.coinflip-layout .bet-amount-container input{
+    text-align: right;
+    width: 100px;
+    background-color: transparent;
+    border: none;
+    color: #313131;
+}
+.bet-amount-container input::-webkit-outer-spin-button,
+.bet-amount-container input::-webkit-inner-spin-button {
+    display: none;
+}
+.bet-amount-container input:focus-visible{
+    outline: none;
+}
+.coinflip-layout .bet-amount-container button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #313131;
+}
+.coinflip-layout .bet-amount-container span{
+    padding-left: 0.5rem;
+}
+.coinflip-layout .bet-amount-container .bet-input-wrapper{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+
+    background-color: #848484;
+    border: 4px inset #BFBFBF;
+    padding: 0 0.5rem;
+    height: 100%;
+    color: #313131;
+}
+
+
+.coinflip-layout .description{
+    background-color: #BFBFBF;
+    border: 1px solid #474747;
+    padding: 16px 32px;
+    gap: 5rem;
+    font-family: 'OpenSansPX', sans-serif;
+    font-size: 1.5rem;
+}
