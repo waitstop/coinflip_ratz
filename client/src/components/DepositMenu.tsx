@@ -17,8 +17,8 @@ const GET_BALANCE = gql`
 `
 
 const SET_BALANCE = gql`
-    mutation SetBalance($address: String!, $amount: Float!) {
-        setBalance(address: $address, amount: $amount)
+    mutation SetBalance($address: String!, $amount: Float!, $transaction: String!) {
+        setBalance(address: $address, amount: $amount, transaction: $transaction)
     }
 `
 
@@ -86,13 +86,12 @@ const DepositMenu = () => {
         try {
             const signature = await sendTransaction(transaction, connection, {minContextSlot})
             await connection.confirmTransaction({blockhash, lastValidBlockHeight, signature})
-
-            setBdBalance({variables: {address: publicKey, amount: amount}}).then((data) => {
+            setBdBalance({variables: {address: publicKey, amount: amount, transaction: signature}}).then((data) => {
                 if(!setBalance) return
                 setBalance(data.data.setBalance)
             })
         } catch (e) {
-            // HANDLE ERROR
+            console.log(e)
         }
     }, [publicKey, sendTransaction, connection, setBdBalance, setBalance])
 

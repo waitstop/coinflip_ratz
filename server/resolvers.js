@@ -4,11 +4,16 @@ const {Keypair, Transaction, SystemProgram, PublicKey, sendAndConfirmTransaction
     LAMPORTS_PER_SOL
 } = require('@solana/web3.js')
 const secretKeyFrom = require('./config')
+const logger = require('./api/logger')
 
 const resolvers = {
     Query: {
         userByAddress: async (_, {address}) => {
-            return User.findOne({address: address});
+            const user = await User.findOne({address: address})
+            if(!!user) return user
+            const newUser = new User({address: address, balance: 0})
+            await newUser.save()
+            return newUser
         }
     },
     Mutation: {
@@ -17,7 +22,15 @@ const resolvers = {
             await newUser.save()
             return newUser
         },
-        setBalance: async (_, {address, amount}) => {
+        setBalance: async (_, {address, amount, transaction}) => {
+            const connection = await new Connection(clusterApiUrl('devnet'))
+            const transactionStatus = await connection.getTransaction(transaction, {commitment: "confirmed"})
+
+            if(!!transactionStatus.meta.err) {
+                logger.error(`${address} SET BALANCE => ${amount} | signature: ${transaction} (ERROR TRANSACTION)`)
+                return
+            }
+
             const user = await User.findOne({address: address})
             if (!user){
                 const newUser = new User({address, balance: Number((amount).toFixed(15))})
@@ -27,6 +40,7 @@ const resolvers = {
             const prevBalance = user.balance
             user.balance = Number((prevBalance+amount).toFixed(3))
             await user.save()
+            logger.info(`${address} SET BALANCE => ${amount} | signature: ${transaction} (SUCCESS)`)
             return user.balance
         },
         play: async (_, {address, bet}) => {
@@ -39,10 +53,12 @@ const resolvers = {
             let result
             const prevBalance = user.balance
             if(randSide === 1){
+                logger.info(`${address} PLAY FOR ${bet} | result: WIN (SUCCESS)`)
                 user.balance = Number(prevBalance+(bet*2)).toFixed(3)
                 result = 'win'
             }
             else{
+                logger.info(`${address} PLAY FOR ${bet} | result: LOSE (SUCCESS)`)
                 user.balance = Number(prevBalance-bet).toFixed(3)
                 result = 'lose'
             }
@@ -66,16 +82,18 @@ const resolvers = {
                 })
             )
             try {
-                await sendAndConfirmTransaction(
+                user.balance = Number(user.balance-amount).toFixed(3)
+                user.save()
+                sendAndConfirmTransaction(
                     connection,
                     transaction,
                     [keypair]
                 )
-                user.balance = Number(user.balance-amount).toFixed(3)
-                user.save()
+                logger.info(`${address} WITHDRAW ${amount} (SUCCESS)`)
                 return user
             }
             catch (e) {
+                logger.info(`${address} WITHDRAW ${amount} (ERROR) | ERROR MESSAGE: ${e}`)
                 console.log(e)
             }
         }

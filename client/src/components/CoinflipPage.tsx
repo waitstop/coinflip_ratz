@@ -6,6 +6,9 @@ import CoinflipMenu from "./CoinflipMenu";
 import {CoinflipContext} from "../Context/CoinflipContext";
 import {gql, useMutation} from "@apollo/client";
 import {useWallet} from "@solana/wallet-adapter-react";
+import animationLeftWins from "../images/animations/left_wins_black.gif"
+import animationRightWins from "../images/animations/right_wins_black.gif"
+
 
 require('./css/coinflipPage.css')
 
@@ -32,6 +35,7 @@ const PLAY_QUERY = gql`
     }
 `
 
+
 const CoinflipPage: FC = () => {
     const [isMenu, setIsMenu] = useState<boolean>(false)
     const [balance, setBalance] = useState<number>(0)
@@ -43,6 +47,8 @@ const CoinflipPage: FC = () => {
     const [leftRatState, setLeftRatState] = useState<string>('normal')
     const [rightRatState, setRightRatState] = useState<string>('normal')
     const [winSide, setWinSide] = useState<string|null>(null)
+    const [gameState, setGameState] = useState<string>('init')
+    const [imgRandValue, setImgRandValue] = useState<number>(Math.random())
 
     const [playQuery] = useMutation(PLAY_QUERY, {
         refetchQueries: [
@@ -60,48 +66,64 @@ const CoinflipPage: FC = () => {
         setRatIds([id1, id2])
     }, [])
 
+    const handleReset = () => {
+        setGameState('init')
+        setLeftRatState('normal')
+        setRightRatState('normal')
+        setWinSide(null)
+        setCurrentRat('')
+        let id1 = getRandomIntInclusive(0, RATS.length-1)
+        let id2 = getRandomIntInclusive(0, RATS.length-1)
+        while (id1 === id2){
+            id2 = getRandomIntInclusive(0, RATS.length-1)
+        }
+        setRatIds([id1, id2])
+        setImgRandValue(Math.random())
+    }
+
     const handleReady = () => {
+        setGameState('run')
         if(!(currentBet && currentRat)) return
         if(!(currentBet <= 5 && currentBet >= 0.01)) return
 
         playQuery({variables: {address: publicKey, bet: currentBet}})
             .then((res)=>{
-                setBalance(res.data.play.newBalance)
+                setTimeout(()=>{
+                    setBalance(res.data.play.newBalance)
+                },3000)
                 if(res.data.play.result === 'win'){
                     setWinSide(currentRat)
-                    if(currentRat === 'left') {
-                        setRightRatState('dead')
-                        setLeftRatState('win')
-                    }
-                    else{
-                        setRightRatState('win')
-                        setLeftRatState('dead')
-                    }
+                    setTimeout(()=>{
+                        if(currentRat === 'left') {
+                            setRightRatState('dead')
+                            setLeftRatState('win')
+                        }
+                        else{
+                            setRightRatState('win')
+                            setLeftRatState('dead')
+                        }
+                    },3000)
+
                 }
                 else {
-                    if(currentRat === 'right') {
-                        setRightRatState('dead')
-                        setLeftRatState('win')
-                    }
-                    else{
-                        setRightRatState('win')
-                        setLeftRatState('dead')
-                    }
+                    setWinSide(currentRat === 'left' ? 'right':'left')
+                    setTimeout(()=>{
+                        if(currentRat === 'right') {
+                            setRightRatState('dead')
+                            setLeftRatState('win')
+                        }
+                        else{
+                            setRightRatState('win')
+                            setLeftRatState('dead')
+                        }
+                    },3000)
+
                 }
             })
 
         setTimeout(()=>{
-            setLeftRatState('normal')
-            setRightRatState('normal')
-            setWinSide(null)
-            setCurrentRat('')
-            let id1 = getRandomIntInclusive(0, RATS.length-1)
-            let id2 = getRandomIntInclusive(0, RATS.length-1)
-            while (id1 === id2){
-                id2 = getRandomIntInclusive(0, RATS.length-1)
-            }
-            setRatIds([id1, id2])
-        }, 2000)
+            setGameState('reset')
+        }, 6000)
     }
 
     return(
@@ -115,13 +137,26 @@ const CoinflipPage: FC = () => {
                             {!!isMenu &&(
                                 <CoinflipMenu/>
                             )}
-                            {!isMenu && (
-                                <>
-                                    {winSide === 'left' ?
-                                        (<h1>Left rat wins</h1>):
-                                        (<h1>Right rat wins</h1>)
-                                    }
-                                </>
+                            {!!(gameState === 'run') && (
+                                <div
+                                    style={{
+                                        backgroundImage: `url(${winSide === 'left' ? animationLeftWins:animationRightWins}?dummy=${imgRandValue})`,
+                                        backgroundSize: 'cover',
+                                        backgroundRepeat: 'no-repeat',
+                                        width: '100%',
+                                        height: '100%'
+                                    }}
+                                />
+                            )}
+                            {gameState === 'reset' && (
+                                <div>
+                                    <Button
+                                        style={{fontSize: '3rem'}}
+                                        onClick={handleReset}
+                                    >
+                                        Reset
+                                    </Button>
+                                </div>
                             )}
                         </div>
                     </div>
@@ -153,6 +188,7 @@ const CoinflipPage: FC = () => {
                         </div>
                     </div>
                     <Button
+                        disabled={gameState !== 'init' || !currentRat}
                         style={{width: '250px', padding: '1rem 0', fontSize: '3rem'}}
                         onClick={handleReady}
                     >

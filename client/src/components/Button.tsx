@@ -3,10 +3,11 @@ import {FC, ReactNode, MouseEventHandler, useState} from "react";
 type props = {
     children: ReactNode,
     style?: object,
-    onClick?: MouseEventHandler
+    onClick?: MouseEventHandler,
+    disabled?: boolean
 }
 
-const Button:FC<props> = ({children, style, onClick}) => {
+const Button:FC<props> = ({children, style, onClick, disabled= false}) => {
     const [pressed, setPressed] = useState(false)
 
     const defaultStyle = {
@@ -23,11 +24,12 @@ const Button:FC<props> = ({children, style, onClick}) => {
 
     return (
         <button
+            disabled={disabled}
             onMouseDown={() => setPressed(true)}
             onMouseLeave={() => setPressed(false)}
             onMouseUp={() => setPressed(false)}
             style={{...defaultStyle, ...style}}
-            onClick={onClick}
+            onClick={disabled? ()=>{return}:onClick}
         >
             {children}
         </button>

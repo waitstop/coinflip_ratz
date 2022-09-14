@@ -17,7 +17,7 @@ const typeDefs = gql`
     }
     type Mutation {
         createUser(address: String!, balance: Float!): User!
-        setBalance(address: String!, amount: Float!): Float!
+        setBalance(address: String!, amount: Float!, transaction: String!): Float!
         play(address: String!, bet: Float!): GameResult!
         withdraw(address: String!, amount: Float!): User!
     }
