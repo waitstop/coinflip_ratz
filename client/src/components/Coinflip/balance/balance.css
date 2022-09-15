@@ -1,0 +1,21 @@
+.components-balance-wrapper {
+  gap: 0.5em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  font-family: 'OpenSansPX', sans-serif;
+  padding: 0.1em 0.5em;
+  font-size: 2rem;
+  border: 0.1em outset #BFBFBF;
+  outline: 0.03em solid #474747;
+  background-color: #999999;
+}
+.components-balance-wrapper .components-balance-amount {
+  background-color: #848484;
+  padding: 0.1em 0.5em;
+  border: 0.1em inset #BFBFBF;
+  color: #313131;
+}
+/*# sourceMappingURL=balance.css.map */

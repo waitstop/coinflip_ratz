@@ -1,12 +1,12 @@
 import {useCallback, useContext, useEffect, useState} from "react";
 import {LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction} from "@solana/web3.js";
-import {PUBLIC_ADDRESS_OWNER} from "../config";
+import {PUBLIC_ADDRESS_OWNER} from "../../../../config";
 import {gql, useLazyQuery, useMutation} from "@apollo/client";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-import {CoinflipContext} from "../Context/CoinflipContext";
-import Button from "./Button";
+import {CoinflipContext} from "../../../../Context/CoinflipContext";
+import Button from "../../button/Button";
 
-require('./css/coinflipMenu.css')
+require('./coinflipDepositMenu.css')
 
 const GET_BALANCE = gql`
     query UserByAddress($address: String!) {

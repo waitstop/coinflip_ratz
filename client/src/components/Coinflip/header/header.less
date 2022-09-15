@@ -1,0 +1,29 @@
+.header{
+    position: relative;
+    display: flex;
+    background-color: #DDDA8E;
+    box-shadow: 0px 8px 0px 0px #CBC883;
+    max-width: 100%;
+    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+
+    & .wallet-buttons-container{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 1rem;
+        justify-content: flex-end;
+        align-content: center;
+    }
+    & .balance{
+        margin-top: 0.5rem;
+        font-size: 1.25rem;
+        width: 100%;
+        display: block;
+        text-align: right;
+    }
+}

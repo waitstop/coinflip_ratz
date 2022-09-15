@@ -3,58 +3,58 @@ import {FC} from "react";
 export const RATS = [
     {
         name: 'John Ratto',
-        img_alive: require('../images/alive/rat_1.png'),
-        img_dead: require('../images/dead/rat_1.png'),
+        img_alive: require('../../../images/alive/rat_1.png'),
+        img_dead: require('../../../images/dead/rat_1.png'),
         speech: 'Looking for a trouble, partner? Get out of here!',
         speech_win: 'Sorry, kid',
         speech_dead: 'Ughhhhh...',
         items: [
-            require('../images/items/revolver_4.png'),
-            require('../images/items/beans.png'),
-            require('../images/items/rope.png'),
-            require('../images/items/noitem.png'),
+            require('../../../images/items/revolver_4.png'),
+            require('../../../images/items/beans.png'),
+            require('../../../images/items/rope.png'),
+            require('../../../images/items/noitem.png'),
         ]
     },
     {
         name: 'Bob Ratsky',
-        img_alive: require('../images/alive/rat_2.png'),
-        img_dead: require('../images/dead/rat_2.png'),
+        img_alive: require('../../../images/alive/rat_2.png'),
+        img_dead: require('../../../images/dead/rat_2.png'),
         speech: 'Don`t try me! You`re in way over your head!',
         speech_win: 'You should have listened to me.',
         speech_dead: 'Oh... God...',
         items: [
-            require('../images/items/revolver_1.png'),
-            require('../images/items/cig.png'),
-            require('../images/items/glass.png'),
-            require('../images/items/noitem.png'),
+            require('../../../images/items/revolver_1.png'),
+            require('../../../images/items/cig.png'),
+            require('../../../images/items/glass.png'),
+            require('../../../images/items/noitem.png'),
         ]
     },
     {
         name: 'Silva de Mice',
-        img_alive: require('../images/alive/rat_3.png'),
-        img_dead: require('../images/dead/rat_3.png'),
+        img_alive: require('../../../images/alive/rat_3.png'),
+        img_dead: require('../../../images/dead/rat_3.png'),
         speech: 'You making a big mistake, my friend!',
         speech_win: 'Se la vie.',
         speech_dead: '...',
         items: [
-            require('../images/items/revolver_2.png'),
-            require('../images/items/watch.png'),
-            require('../images/items/coin.png'),
-            require('../images/items/noitem.png'),
+            require('../../../images/items/revolver_2.png'),
+            require('../../../images/items/watch.png'),
+            require('../../../images/items/coin.png'),
+            require('../../../images/items/noitem.png'),
         ]
     },
     {
         name: 'Squicky Joe',
-        img_alive: require('../images/alive/rat_4.png'),
-        img_dead: require('../images/dead/rat_4.png'),
+        img_alive: require('../../../images/alive/rat_4.png'),
+        img_dead: require('../../../images/dead/rat_4.png'),
         speech: 'You gotta be dumb to challenge me, boy.',
         speech_win: 'Ha-ha-ha, bring the coffin!',
         speech_dead: 'Aarrgh! You, bustar...',
         items: [
-            require('../images/items/revolver_3.png'),
-            require('../images/items/bottle.png'),
-            require('../images/items/tnt.png'),
-            require('../images/items/noitem.png')
+            require('../../../images/items/revolver_3.png'),
+            require('../../../images/items/bottle.png'),
+            require('../../../images/items/tnt.png'),
+            require('../../../images/items/noitem.png')
         ]
     },
 

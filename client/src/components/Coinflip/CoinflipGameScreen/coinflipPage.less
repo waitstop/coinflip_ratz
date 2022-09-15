@@ -1,0 +1,97 @@
+.coinflip-layout{
+    max-width: 1920px;
+    margin-inline: auto;
+    margin-top: 4rem;
+    padding-inline: 2rem;
+    & > .row {
+        margin-top: 1rem;
+        gap: 1rem;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+    .description{
+        background-color: #BFBFBF;
+        border: 1px solid #474747;
+        padding: 16px 32px;
+        gap: 5rem;
+        font-family: 'OpenSansPX', sans-serif;
+        font-size: 1.5rem;
+    }
+    .bet-amount-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        align-content: center;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        background-color: #999999;
+        padding: 16px;
+        flex-grow: 2;
+        border: 0.1em solid #474747;
+        button, span, input{
+            font-family: 'OpenSansPX', sans-serif;
+            font-size: 3rem;
+        }
+        input {
+            text-align: right;
+            width: 100px;
+            background-color: transparent;
+            border: none;
+            color: #313131;
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button{
+                display: none;
+            }
+            &:focus-visible{
+                outline: none;
+            }
+        }
+        button{
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: #313131;
+        }
+        span{
+            padding-left: 0.5rem;
+        }
+        .bet-input-wrapper{
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            align-content: center;
+
+            background-color: #848484;
+            border: 4px inset #BFBFBF;
+            padding: 0 0.5rem;
+            height: 100%;
+            color: #313131;
+        }
+    }
+}
+.bet-min-max-buttons,
+.bet-input-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.reset-screen-wrapper{
+    h1, h2{
+        text-align: center;
+        color: white;
+        margin: 0;
+        padding: 0;
+        font-family: 'OpenSansPX', sans-serif;
+    }
+    h1{
+        font-size: 3.5rem;
+    }
+    h2{
+        font-weight: normal;
+        font-size: 1.8rem;
+    }
+}

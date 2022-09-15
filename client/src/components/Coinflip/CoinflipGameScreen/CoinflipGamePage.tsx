@@ -1,16 +1,19 @@
 import React, {FC, useEffect, useState} from "react";
-import Header from "./Header";
+import Header from "../header/Header";
 import {Rat, RATS} from "./Rat";
-import Button from "./Button";
-import CoinflipMenu from "./CoinflipMenu";
-import {CoinflipContext} from "../Context/CoinflipContext";
+import Button from "../button/Button";
+import CoinflipMenu from "./CoinflipMenu/CoinflipMenu";
+import {CoinflipContext} from "../../../Context/CoinflipContext";
 import {gql, useMutation} from "@apollo/client";
 import {useWallet} from "@solana/wallet-adapter-react";
-import animationLeftWins from "../images/animations/left_wins_black.gif"
-import animationRightWins from "../images/animations/right_wins_black.gif"
+import animationLeftWins from "../../../images/animations/left_wins_black.gif"
+import animationRightWins from "../../../images/animations/right_wins_black.gif"
+import animationInit from '../../../images/animations/duel_static.png'
+import { motion } from "framer-motion";
+import Box from "../box/Box";
 
 
-require('./css/coinflipPage.css')
+require('./coinflipPage.css')
 
 function getRandomIntInclusive(min: number, max: number) {
     min = Math.ceil(min);
@@ -36,13 +39,13 @@ const PLAY_QUERY = gql`
 `
 
 
-const CoinflipPage: FC = () => {
+const CoinflipGamePage: FC = () => {
     const [isMenu, setIsMenu] = useState<boolean>(false)
     const [balance, setBalance] = useState<number>(0)
     const {publicKey} = useWallet()
 
     const [ratsIds, setRatIds] = useState([0,1])
-    const [currentBet, setCurrentBet] = useState(0.01)
+    const [currentBet, setCurrentBet] = useState<number|null>(0.01)
     const [currentRat, setCurrentRat] = useState('')
     const [leftRatState, setLeftRatState] = useState<string>('normal')
     const [rightRatState, setRightRatState] = useState<string>('normal')
@@ -123,7 +126,7 @@ const CoinflipPage: FC = () => {
 
         setTimeout(()=>{
             setGameState('reset')
-        }, 6000)
+        }, 5000)
     }
 
     return(
@@ -132,45 +135,111 @@ const CoinflipPage: FC = () => {
             <div className="coinflip-layout">
                 <div className="row">
                     <Rat id={ratsIds[0]} status={leftRatState} orientation='left'/>
-                    <div className="screen-container">
-                        <div className="screen">
+                    <Box>
                             {!!isMenu &&(
                                 <CoinflipMenu/>
                             )}
-                            {!!(gameState === 'run') && (
+                            {
+                                (gameState === 'init' && !isMenu) && (
+                                    <div
+                                        style={{
+                                            backgroundImage: `url(${animationInit})`,
+                                            backgroundPosition: 'center',
+                                            backgroundSize: 'cover',
+                                            backgroundRepeat: 'no-repeat',
+                                            width: '100%',
+                                            height: '100%'
+                                        }}
+                                    />
+                                )
+                            }
+                            {(gameState !== 'init' && !isMenu) && (
                                 <div
                                     style={{
                                         backgroundImage: `url(${winSide === 'left' ? animationLeftWins:animationRightWins}?dummy=${imgRandValue})`,
+                                        backgroundPosition: 'center',
                                         backgroundSize: 'cover',
                                         backgroundRepeat: 'no-repeat',
                                         width: '100%',
-                                        height: '100%'
+                                        height: '100%',
                                     }}
-                                />
-                            )}
-                            {gameState === 'reset' && (
-                                <div>
-                                    <Button
-                                        style={{fontSize: '3rem'}}
-                                        onClick={handleReset}
-                                    >
-                                        Reset
-                                    </Button>
+                                >
+                                    {(gameState === 'reset' && !isMenu) && (
+                                        <motion.div
+                                            className={"reset-screen-wrapper"}
+                                            initial={{
+                                                opacity: 0
+                                            }}
+                                            animate={{
+                                                opacity: 1
+                                            }}
+                                            style={{
+                                                backgroundColor: 'rgba(0,0,0,0.6)',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                justifyContent: 'center',
+                                                alignContent: 'space-between',
+                                                alignItems: 'center',
+                                                width: '100%',
+                                                height: '100%',
+                                                position: 'relative'
+                                            }}
+                                        >
+                                            {winSide === currentRat ?
+                                                (
+                                                    <div>
+                                                        <h1>
+                                                            CONGRATZ!
+                                                            <br/>
+                                                            YOU WON THIS TIME!
+                                                        </h1>
+                                                        <h2>
+                                                            your bet has doubled, but someone got hurt...
+                                                        </h2>
+                                                    </div>
+                                                ):(
+                                                    <div>
+                                                        <h1>
+                                                            Huh, you lost, partner.
+                                                            <br/>
+                                                            Better luck next time...
+                                                        </h1>
+                                                        <h2>
+                                                            Be careful trying to play out.
+                                                        </h2>
+                                                    </div>
+                                                )
+                                            }
+                                            <Button
+                                                style={{
+                                                    fontSize: '3rem',
+                                                    color: 'white',
+                                                    position: 'absolute',
+                                                    bottom: '3.5rem',
+                                                    left: '50%',
+                                                    transform: 'translateX(-50%)'
+                                                }}
+                                                onClick={handleReset}
+                                            >
+                                                reset
+                                            </Button>
+                                        </motion.div>
+                                    )}
                                 </div>
                             )}
-                        </div>
-                    </div>
+                    </Box>
                     <Rat id={ratsIds[1]} status={rightRatState} orientation='right'/>
                 </div>
 
                 <div className="row">
                     <Button
+                        disabled={gameState !== 'init'}
                         onClick={()=>setCurrentRat('left')}
                         style={{
                             backgroundColor: currentRat === 'left' ? '#6D6D6D':'#999999',
                             border: currentRat === 'left' ? '0.1em outset #999999':'0.1em outset #BFBFBF',
                             width: '320px', padding: '1rem 0', fontSize: '3rem'
-                    }}
+                        }}
                     >
                         {currentRat === 'left'?'Selected':'Select'}
                     </Button>
@@ -182,7 +251,7 @@ const CoinflipPage: FC = () => {
                                 <button onClick={()=>setCurrentBet(5)}>max</button>
                             </div>
                             <div className={'bet-input-container'}>
-                                <input value={currentBet} onChange={e=>setCurrentBet(parseFloat(e.target.value))} max={5} min={0.01} type="number"/>
+                                <input value={currentBet||undefined} onChange={e=>setCurrentBet(parseFloat(e.target.value))} max={5} min={0.01} type="number"/>
                                 <span> sol</span>
                             </div>
                         </div>
@@ -195,12 +264,13 @@ const CoinflipPage: FC = () => {
                         Ready
                     </Button>
                     <Button
+                        disabled={gameState !== 'init'}
                         onClick={()=>setCurrentRat('right')}
                         style={{
                             backgroundColor: currentRat === 'right' ? '#6D6D6D':'#999999',
                             border: currentRat === 'right' ? '0.1em outset #999999':'0.1em outset #BFBFBF',
                             width: '320px', padding: '1rem 0', fontSize: '3rem'
-                    }}
+                        }}
                     >
                         {currentRat === 'right'?'Selected':'Select'}
                     </Button>
@@ -217,4 +287,4 @@ const CoinflipPage: FC = () => {
 }
 
 
-export default CoinflipPage
+export default CoinflipGamePage

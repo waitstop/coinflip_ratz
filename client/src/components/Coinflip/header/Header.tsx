@@ -1,13 +1,15 @@
 import {WalletMultiButton} from "@solana/wallet-adapter-react-ui";
 import React, {useContext, useEffect} from "react";
 import {useConnection, useWallet} from '@solana/wallet-adapter-react';
-import Button from "./Button";
-import Balance from "./Balance";
-import logo from '../images/logo_header.png'
-import {CoinflipContext} from "../Context/CoinflipContext";
+import Button from "../button/Button";
+import Balance from "../balance/Balance";
+import logoHub from '../../../images/logo_game_hub.png'
+import logoGame from '../../../images/logo_back_to_hub.png'
+import {CoinflipContext} from "../../../Context/CoinflipContext";
 import {gql, useLazyQuery} from "@apollo/client";
+import {useLocation} from "react-router-dom";
 
-require("./css/header.css")
+require("./header.css")
 
 const GET_BALANCE = gql`
     query UserByAddress($address: String!) {
@@ -18,6 +20,7 @@ const GET_BALANCE = gql`
 `
 
 const Header = () => {
+    const currentPath = useLocation().pathname
     const Context = useContext(CoinflipContext)
     const isMenu = Context.isMenu
     const setIsMenu = Context.setIsMenu
@@ -40,11 +43,37 @@ const Header = () => {
     }, [publicKey, connection, getBalance, setBalance])
 
     return (
-        <div className="header">
-            <img className="logo" src={logo} alt="logo"/>
+        <div className="header"
+             style={{
+                 justifyContent: currentPath === '/' ? 'space-between':'flex-end'
+             }}
+        >
+            {currentPath === '/' && (
+                <a href={"/hub"}>
+                    <img
+                        className="logo"
+                        src={logoGame}
+                        alt="logo"
+                    />
+                </a>
+            )}
+
+            {currentPath === '/hub' && (
+                <img
+                    className="logo"
+                    src={logoHub}
+                    alt="logo"
+                    style={{
+                        position: 'absolute',
+                        left: '50%',
+                        transform: 'translateX(-50%)'
+                    }}
+                />
+            )}
+
             <div className="wallet-buttons-container">
                 {
-                    !!publicKey &&
+                    (!!publicKey && currentPath === '/') &&
                     <>
                         <Balance balance={balance || 0}/>
 

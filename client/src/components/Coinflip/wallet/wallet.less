@@ -1,0 +1,77 @@
+.custom-wallet-button{
+    .custom-disconnect-button{
+        color: black;
+        background: #999999;
+        font-family: "OpenSansPX", sans-serif;
+        font-weight: normal;
+        font-size: 2rem;
+        height: 100%;
+        border-radius: 0;
+        border: 0.1em outset #BFBFBF;
+        outline: 0.03em solid #474747;
+        &:not([disabled]):hover{
+            background: #999999;
+        }
+        &[disabled]{
+            background: var(--lightColor0);
+            color: var(--lightColor1)
+        }
+    }
+    .wallet-adapter-button-start-icon {
+        display: none;
+    }
+    .wallet-adapter-button-start-icon {
+        display: none;
+    }
+    &:not([disabled]):hover{
+        background: #999999;
+    }
+}
+
+.custom-wallet-button,
+.custom-disconnect-button{
+    color: black;
+    background: #999999;
+    font-family: "OpenSansPX", sans-serif;
+    font-weight: normal;
+    font-size: 2rem;
+    height: 100%;
+    border-radius: 0;
+    border: 0.1em outset #BFBFBF;
+    outline: 0.03em solid #474747;
+}
+
+.wallet-adapter-dropdown-list {
+    background: var(--darkColor1);
+    & > li {
+        font-family: "OpenSansPX", sans-serif;
+        font-size: 1rem;
+    }
+}
+
+.custom-wallet-modal{
+    .wallet-adapter-modal-wrapper{
+        background: var(--darkColor1);
+
+        .wallet-adapter-modal-title{
+            font-family: "OpenSansPX", sans-serif;
+            font-size: 2rem;
+        }
+
+        .wallet-adapter-modal-list{
+            & > li {
+                & > button{
+                    font-family: "OpenSansPX", sans-serif;
+                    font-size: 1.5rem;
+                    & > span {
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
+
+        .wallet-adapter-modal-button-close{
+            background: var(--darkColor2);
+        }
+    }
+}

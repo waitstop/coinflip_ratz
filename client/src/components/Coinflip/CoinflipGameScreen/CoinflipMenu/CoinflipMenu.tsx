@@ -1,6 +1,6 @@
-import Button from "./Button";
+import Button from "../../button/Button";
 import {useContext, useState} from "react";
-import {CoinflipContext} from "../Context/CoinflipContext";
+import {CoinflipContext} from "../../../../Context/CoinflipContext";
 import DepositMenu from "./DepositMenu";
 import StatsMenu from "./StatsMenu";
 import HistoryMenu from "./HistoryMenu";

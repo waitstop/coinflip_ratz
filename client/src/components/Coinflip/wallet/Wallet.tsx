@@ -6,7 +6,7 @@ import {ConnectionProvider, WalletProvider} from "@solana/wallet-adapter-react";
 import {WalletModalProvider} from "@solana/wallet-adapter-react-ui";
 
 require('@solana/wallet-adapter-react-ui/styles.css');
-require('./css/wallet.css')
+require('./wallet.css')
 
 const Wallet: FC<{children: ReactNode}> = ({children}) => {
     const network = WalletAdapterNetwork.Devnet;

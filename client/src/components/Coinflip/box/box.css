@@ -1,0 +1,13 @@
+.components-wrapper-box {
+  border: 4px solid #474747;
+  padding: 4px;
+  background-color: #999999;
+  display: flex;
+  flex-grow: 1;
+}
+.components-box {
+  width: 100%;
+  background-color: #999999;
+  border: 4px inset #BFBFBF;
+}
+/*# sourceMappingURL=box.css.map */
