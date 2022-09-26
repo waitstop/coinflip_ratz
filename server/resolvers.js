@@ -6,24 +6,27 @@ const {Keypair, Transaction, SystemProgram, PublicKey, sendAndConfirmTransaction
 const secretKeyFrom = require('./config')
 const logger = require('./api/logger')
 
+const network = process.env.NODE_ENV === 'development' ? 'devnet':'mainnet'
+const fixFloat = 4
+
 const resolvers = {
     Query: {
         userByAddress: async (_, {address}) => {
             const user = await User.findOne({address: address})
             if(!!user) return user
-            const newUser = new User({address: address, balance: 0})
+            const newUser = new User({address: address})
             await newUser.save()
             return newUser
         }
     },
     Mutation: {
-        createUser: async (_, {address, balance})=>{
-            const newUser = new User({address, balance})
+        createUser: async (_, {address})=>{
+            const newUser = new User({address})
             await newUser.save()
             return newUser
         },
         setBalance: async (_, {address, amount, transaction}) => {
-            const connection = await new Connection(clusterApiUrl('devnet'))
+            const connection = await new Connection(clusterApiUrl(network))
             const transactionStatus = await connection.getTransaction(transaction, {commitment: "confirmed"})
 
             if(!!transactionStatus.meta.err) {
@@ -33,9 +36,9 @@ const resolvers = {
 
             const user = await User.findOne({address: address})
             if (!user){
-                const newUser = new User({address, balance: Number((amount).toFixed(15))})
+                const newUser = new User({address, balance: Number((amount).toFixed(fixFloat))})
                 await newUser.save()
-                return Number((amount).toFixed(15))
+                return Number((amount).toFixed(fixFloat))
             }
             const prevBalance = user.balance
             user.balance = Number((prevBalance+amount).toFixed(3))
@@ -43,7 +46,7 @@ const resolvers = {
             logger.info(`${address} SET BALANCE => ${amount} | signature: ${transaction} (SUCCESS)`)
             return user.balance
         },
-        play: async (_, {address, bet}) => {
+        play: async (_, {address, bet, side}) => {
             const user = await User.findOne({address: address})
             if(!user) return
             if(user.balance < bet) return
@@ -54,14 +57,27 @@ const resolvers = {
             const prevBalance = user.balance
             if(randSide === 1){
                 logger.info(`${address} PLAY FOR ${bet} | result: WIN (SUCCESS)`)
-                user.balance = Number(prevBalance+(bet*2)).toFixed(3)
+                user.balance = Number(prevBalance+(bet*2-(bet/100 * 3))).toFixed(fixFloat) // bet * 2 - 3%
                 result = 'win'
+
+                //stats
+                user.solGained = Number(bet*2 + user.solGained).toFixed(fixFloat)
+                user.winStreak += 1
             }
             else{
                 logger.info(`${address} PLAY FOR ${bet} | result: LOSE (SUCCESS)`)
-                user.balance = Number(prevBalance-bet).toFixed(3)
+                user.balance = Number(prevBalance-bet).toFixed(fixFloat)
                 result = 'lose'
+
+                //stats
+                user.winStreak = 0
             }
+
+            //stats
+            user.gamePlayed += 1
+            side === 'left' ? user.leftSidePlayed += 1 : user.rightSidePlayed += 1
+            user.leftSidePlayed > user.rightSidePlayed ? user.favSide = 'left' : user.favSide = 'right'
+
             await user.save()
             return ({address: address, newBalance: user.balance, result: result})
         },
@@ -72,7 +88,7 @@ const resolvers = {
 
             const keypair = await Keypair.fromSecretKey(secretKeyFrom)
             const transaction = await new Transaction()
-            const connection = await new Connection(clusterApiUrl('devnet'))
+            const connection = await new Connection(clusterApiUrl(network))
 
             transaction.add(
                 SystemProgram.transfer({
@@ -82,7 +98,7 @@ const resolvers = {
                 })
             )
             try {
-                user.balance = Number(user.balance-amount).toFixed(3)
+                user.balance = Number(user.balance-amount).toFixed(fixFloat)
                 user.save()
                 sendAndConfirmTransaction(
                     connection,

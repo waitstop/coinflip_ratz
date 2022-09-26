@@ -1,3 +1,16 @@
+.hub-page hr {
+  margin-top: 2rem;
+  width: calc(100% - 2rem*2);
+  height: 8px;
+  border: none;
+  background: #363636;
+}
+.hub-page > h1 {
+  font-family: 'OpenSansPX', sans-serif;
+  color: #5B5B56;
+  font-size: 4rem;
+  text-align: center;
+}
 .hub-page-container {
   margin-top: 4rem;
   padding-inline: 2rem;

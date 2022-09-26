@@ -30,8 +30,8 @@ const GET_BALANCE = gql`
 `
 
 const PLAY_QUERY = gql`
-    mutation Play($address: String!, $bet: Float!) {
-        play(address: $address, bet: $bet) {
+    mutation Play($address: String!, $bet: Float!, $side: String!) {
+        play(address: $address, bet: $bet, side: $side) {
             newBalance,
             result
         }
@@ -89,7 +89,7 @@ const CoinflipGamePage: FC = () => {
         if(!(currentBet && currentRat)) return
         if(!(currentBet <= 5 && currentBet >= 0.01)) return
 
-        playQuery({variables: {address: publicKey, bet: currentBet}})
+        playQuery({variables: {address: publicKey, bet: currentBet, side: currentRat}})
             .then((res)=>{
                 setTimeout(()=>{
                     setBalance(res.data.play.newBalance)

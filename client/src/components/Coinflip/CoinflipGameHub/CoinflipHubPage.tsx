@@ -10,7 +10,7 @@ const CoinflipHubPage: FC = () => {
     const [isFAQ, setIsFAQ] = useState<boolean>(false)
 
     return(
-        <>
+        <div className={'hub-page'}>
             <Header/>
             <div
                 className={'hub-page-container'}
@@ -45,7 +45,7 @@ const CoinflipHubPage: FC = () => {
                                 <p>
                                     House Wallet:
                                     <br/>
-                                    <a target={'_blank'} href="https://solscan.io/account/D6X9pm65p7NuWrgrYQUNU1M4qvAA7ASz4GWymGuPYrtw">
+                                    <a target={'_blank'} rel={'noreferrer'} href="https://solscan.io/account/D6X9pm65p7NuWrgrYQUNU1M4qvAA7ASz4GWymGuPYrtw">
                                         https://solscan.io/account D6X9pm65p7NuWrgrYQUNU1M4qvAA7ASz4GWymGuPYrtw
                                     </a>
                                 </p>
@@ -54,7 +54,7 @@ const CoinflipHubPage: FC = () => {
                                 <p>
                                     Fee Wallet:
                                     <br/>
-                                    <a target={'_blank'} href={'https://solscan.io/account/DAdbcE5SdqoQArf7V87pYR6jPNmTtEUbR2XeC1kAzZjh'}>
+                                    <a target={'_blank'} rel={'noreferrer'} href={'https://solscan.io/account/DAdbcE5SdqoQArf7V87pYR6jPNmTtEUbR2XeC1kAzZjh'}>
                                         https://solscan.io/account/DAdbcE5SdqoQArf7V87pYR6jPNmTtEUbR2XeC1kAzZjh
                                     </a>
                                 </p>
@@ -93,8 +93,11 @@ const CoinflipHubPage: FC = () => {
                         </Button>
                     </div>
                 </div>
+
             </div>
-        </>
+            <hr/>
+            <h1>MORE GAMES COMING SOON</h1>
+        </div>
     )
 }
 
