@@ -3,10 +3,11 @@ const getResult = require("./api/result");
 const {Keypair, Transaction, SystemProgram, PublicKey, sendAndConfirmTransaction, Connection, clusterApiUrl,
     LAMPORTS_PER_SOL
 } = require('@solana/web3.js')
-const secretKeyFrom = require('./config')
+const {secretKeyFrom, network} = require('./config')
 const logger = require('./api/logger')
 
-const network = process.env.NODE_ENV === 'development' ? 'devnet':'mainnet'
+
+
 const fixFloat = 4
 
 const resolvers = {

@@ -9,7 +9,9 @@ const mongoose = require("mongoose");
 const startServer = async () => {
     const PORT = 5000
     const app = express()
-    app.use(cors())
+    app.use(cors({
+        origin: process.env.NODE_ENV !== 'production' ? undefined:'https://play.wildwestratz.xyz'
+    }))
 
     await mongoose.connect('mongodb://127.0.0.1:27017/ratz_coinflip', {
         useNewUrlParser: true,
@@ -19,7 +21,8 @@ const startServer = async () => {
 
     const apolloServer = new ApolloServer({
         typeDefs,
-        resolvers
+        resolvers,
+        cache: 'bounded'
     })
     await apolloServer.start()
     apolloServer.applyMiddleware({app})

@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.42d67e36.css",
+    "main.js": "/static/js/main.2d65060e.js",
+    "static/js/725.03aa463b.chunk.js": "/static/js/725.03aa463b.chunk.js",
+    "static/media/right_wins_black.gif": "/static/media/right_wins_black.1a2e7534c9527fbd2bbd.gif",
+    "static/media/left_wins_black.gif": "/static/media/left_wins_black.8841f1c5ba9de537af0a.gif",
+    "static/media/revolver_2.png": "/static/media/revolver_2.8a7f0d39c2519963e373.png",
+    "static/media/revolver_3.png": "/static/media/revolver_3.26a0fd11e39bf4f70893.png",
+    "static/media/revolver_4.png": "/static/media/revolver_4.4bf56cf8507831e9b3a0.png",
+    "static/media/animation_background.gif": "/static/media/animation_background.42edc5764b41a1dbd0f3.gif",
+    "static/media/revolver_1.png": "/static/media/revolver_1.fc935bc4a2b7f0f81f7c.png",
+    "static/media/rat_1.png": "/static/media/rat_1.f72dfa75bcb878c3a8ed.png",
+    "static/media/rat_4.png": "/static/media/rat_4.035954cf00b98626eb59.png",
+    "static/media/rat_3.png": "/static/media/rat_3.142025063cfc5df5247c.png",
+    "static/media/rat_2.png": "/static/media/rat_2.410530ba4aff483bc442.png",
+    "static/media/OpenSansPX.woff2": "/static/media/OpenSansPX.96e3aa3208af64f65ed0.woff2",
+    "static/media/OpenSansPXBold.woff2": "/static/media/OpenSansPXBold.13554101976547b791a5.woff2",
+    "index.html": "/index.html",
+    "main.42d67e36.css.map": "/static/css/main.42d67e36.css.map",
+    "main.2d65060e.js.map": "/static/js/main.2d65060e.js.map",
+    "725.03aa463b.chunk.js.map": "/static/js/725.03aa463b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.42d67e36.css",
+    "static/js/main.2d65060e.js"
+  ]
+}

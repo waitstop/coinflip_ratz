@@ -38,6 +38,12 @@ const PLAY_QUERY = gql`
     }
 `
 
+const loadImage = (url: string) => new Promise<string>((resolve, reject) => {
+    const img = new Image()
+    img.addEventListener('load', () => resolve(img.src))
+    img.addEventListener('error', (err) => reject(err))
+    img.src = url
+})
 
 const CoinflipGamePage: FC = () => {
     const [isMenu, setIsMenu] = useState<boolean>(false)
@@ -51,7 +57,11 @@ const CoinflipGamePage: FC = () => {
     const [rightRatState, setRightRatState] = useState<string>('normal')
     const [winSide, setWinSide] = useState<string|null>(null)
     const [gameState, setGameState] = useState<string>('init')
-    const [imgRandValue, setImgRandValue] = useState<number>(Math.random())
+
+    const [animationsUrl, setAnimationUrl] = useState<{left: string, right: string}>({
+        left: animationLeftWins,
+        right: animationRightWins
+    })
 
     const [playQuery] = useMutation(PLAY_QUERY, {
         refetchQueries: [
@@ -71,6 +81,11 @@ const CoinflipGamePage: FC = () => {
 
     const handleReset = () => {
         setGameState('init')
+        setAnimationUrl({
+            ...animationsUrl,
+            left: animationInit,
+            right: animationInit
+        })
         setLeftRatState('normal')
         setRightRatState('normal')
         setWinSide(null)
@@ -81,10 +96,15 @@ const CoinflipGamePage: FC = () => {
             id2 = getRandomIntInclusive(0, RATS.length-1)
         }
         setRatIds([id1, id2])
-        setImgRandValue(Math.random())
     }
 
-    const handleReady = () => {
+    const handleReady = async () => {
+        const rightAnim = await loadImage(animationRightWins+'?clear='+Math.random())
+        const leftAnim = await loadImage(animationLeftWins+'?clear='+Math.random())
+        setAnimationUrl({
+            left: leftAnim,
+            right: rightAnim
+        })
         setGameState('run')
         if(!(currentBet && currentRat)) return
         if(!(currentBet <= 5 && currentBet >= 0.01)) return
@@ -156,13 +176,14 @@ const CoinflipGamePage: FC = () => {
                             {(gameState !== 'init' && !isMenu) && (
                                 <div
                                     style={{
-                                        backgroundImage: `url(${winSide === 'left' ? animationLeftWins:animationRightWins}?dummy=${imgRandValue})`,
+                                        backgroundImage: `url(${winSide === 'left' ? animationsUrl.left:animationsUrl.right}`,
                                         backgroundPosition: 'center',
                                         backgroundSize: 'cover',
                                         backgroundRepeat: 'no-repeat',
                                         width: '100%',
                                         height: '100%',
                                     }}
+
                                 >
                                     {(gameState === 'reset' && !isMenu) && (
                                         <motion.div
