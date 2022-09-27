@@ -11,6 +11,9 @@ import animationRightWins from "../../../images/animations/right_wins_black.gif"
 import animationInit from '../../../images/animations/duel_static.png'
 import { motion } from "framer-motion";
 import Box from "../box/Box";
+import {ToastContainer, toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
+
 
 
 require('./coinflipPage.css')
@@ -99,6 +102,7 @@ const CoinflipGamePage: FC = () => {
     }
 
     const handleReady = async () => {
+        toast.info('Game starting...')
         const rightAnim = await loadImage(animationRightWins+'?clear='+Math.random())
         const leftAnim = await loadImage(animationLeftWins+'?clear='+Math.random())
         setAnimationUrl({
@@ -151,6 +155,17 @@ const CoinflipGamePage: FC = () => {
 
     return(
         <CoinflipContext.Provider value={{isMenu, setIsMenu, balance, setBalance}}>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <Header/>
             <div className="coinflip-layout">
                 <div className="row">
@@ -254,7 +269,7 @@ const CoinflipGamePage: FC = () => {
 
                 <div className="row">
                     <Button
-                        disabled={gameState !== 'init'}
+                        disabled={gameState !== 'init' || !publicKey}
                         onClick={()=>setCurrentRat('left')}
                         style={{
                             backgroundColor: currentRat === 'left' ? '#6D6D6D':'#999999',
@@ -278,14 +293,18 @@ const CoinflipGamePage: FC = () => {
                         </div>
                     </div>
                     <Button
-                        disabled={gameState !== 'init' || !currentRat}
-                        style={{width: '250px', padding: '1rem 0', fontSize: '3rem'}}
+                        disabled={gameState !== 'init' || !currentRat || !publicKey}
+                        style={{
+                            width: '250px',
+                            padding: '1rem 0',
+                            fontSize: '3rem',
+                        }}
                         onClick={handleReady}
                     >
                         Ready
                     </Button>
                     <Button
-                        disabled={gameState !== 'init'}
+                        disabled={gameState !== 'init' || !publicKey}
                         onClick={()=>setCurrentRat('right')}
                         style={{
                             backgroundColor: currentRat === 'right' ? '#6D6D6D':'#999999',

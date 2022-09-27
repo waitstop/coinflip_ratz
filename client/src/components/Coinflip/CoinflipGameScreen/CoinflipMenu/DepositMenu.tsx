@@ -5,6 +5,8 @@ import {gql, useLazyQuery, useMutation} from "@apollo/client";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {CoinflipContext} from "../../../../Context/CoinflipContext";
 import Button from "../../button/Button";
+import {toast} from "react-toastify";
+
 
 require('./coinflipDepositMenu.css')
 
@@ -32,6 +34,7 @@ const WITHDRAW = gql`
 
 const DepositMenu = () => {
     const Context = useContext(CoinflipContext)
+    const setIsMenu = Context.setIsMenu
     const {publicKey, sendTransaction} = useWallet()
     const {connection} = useConnection()
     const balance = Context.balance
@@ -67,6 +70,7 @@ const DepositMenu = () => {
     }, [publicKey, connection, getBalance, setBalance])
 
     const deposit = useCallback(async (amount: number) => {
+        toast.info('Deposit started...')
         if(amount < 0.05) return
         if (!publicKey) return
 
@@ -90,18 +94,28 @@ const DepositMenu = () => {
                 if(!setBalance) return
                 setBalance(data.data.setBalance)
             })
+            toast.success('Deposit success')
+            if (setIsMenu) {
+                setIsMenu(false)
+            }
         } catch (e) {
-            console.log(e)
+            toast.error('Deposit failed')
         }
     }, [publicKey, sendTransaction, connection, setBdBalance, setBalance])
 
     const handleWithdraw = () => {
         if(!(currentWithdraw && balance)) return
         if(currentWithdraw > balance) return
-        withdraw({variables: {address: publicKey, amount: currentWithdraw}}).then((res)=>{
-            if(!setBalance) return
-            setBalance(res.data.withdraw.newBalance)
-        })
+        toast.info('Withdraw started...')
+        withdraw({variables: {address: publicKey, amount: currentWithdraw}})
+            .then((res)=>{
+                if(!setBalance) return
+                toast.success('Withdraw success')
+                setBalance(res.data.withdraw.newBalance)
+            })
+            .catch(()=>{
+                toast.error('Withdraw error')
+            })
     }
 
     return(

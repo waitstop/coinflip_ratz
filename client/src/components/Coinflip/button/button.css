@@ -13,4 +13,7 @@
   border: 0.1em outset #999999;
   background-color: #6D6D6D;
 }
+.components-button:disabled {
+  cursor: not-allowed;
+}
 /*# sourceMappingURL=button.css.map */
