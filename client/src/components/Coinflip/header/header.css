@@ -26,4 +26,14 @@
   display: block;
   text-align: right;
 }
+.header-social a {
+  display: inline-block;
+}
+.header-social a img {
+  height: 40px;
+  width: auto;
+}
+.header-social a:first-child {
+  margin-right: 30px;
+}
 /*# sourceMappingURL=header.css.map */

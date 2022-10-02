@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.588b95bd.css",
-    "main.js": "/static/js/main.edb24bb1.js",
+    "main.css": "/static/css/main.ec3d29ce.css",
+    "main.js": "/static/js/main.c141fb2f.js",
     "static/js/725.03aa463b.chunk.js": "/static/js/725.03aa463b.chunk.js",
     "static/media/right_wins_black.gif": "/static/media/right_wins_black.1a2e7534c9527fbd2bbd.gif",
     "static/media/left_wins_black.gif": "/static/media/left_wins_black.8841f1c5ba9de537af0a.gif",
@@ -16,13 +16,15 @@
     "static/media/rat_2.png": "/static/media/rat_2.410530ba4aff483bc442.png",
     "static/media/OpenSansPX.woff2": "/static/media/OpenSansPX.96e3aa3208af64f65ed0.woff2",
     "static/media/OpenSansPXBold.woff2": "/static/media/OpenSansPXBold.13554101976547b791a5.woff2",
+    "static/media/discord_icon.svg": "/static/media/discord_icon.d6d8b1fc90b9149fab9e6e164daf7c58.svg",
+    "static/media/twitter_icon.svg": "/static/media/twitter_icon.7b8ca7e1ad0c948d8d752585a99dbcfd.svg",
     "index.html": "/index.html",
-    "main.588b95bd.css.map": "/static/css/main.588b95bd.css.map",
-    "main.edb24bb1.js.map": "/static/js/main.edb24bb1.js.map",
+    "main.ec3d29ce.css.map": "/static/css/main.ec3d29ce.css.map",
+    "main.c141fb2f.js.map": "/static/js/main.c141fb2f.js.map",
     "725.03aa463b.chunk.js.map": "/static/js/725.03aa463b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.588b95bd.css",
-    "static/js/main.edb24bb1.js"
+    "static/css/main.ec3d29ce.css",
+    "static/js/main.c141fb2f.js"
   ]
 }

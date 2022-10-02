@@ -11,7 +11,8 @@ const typeDefs = gql`
         favSide: String!,
         leftSidePlayed: Int!,
         rightSidePlayed: Int!,
-        winStreak: Int! 
+        winStreak: Int!,
+        bestWinStreak: Int!
     }
     type GameResult {
         address: String!,
@@ -22,7 +23,6 @@ const typeDefs = gql`
         userByAddress(address: String!): User!
     }
     type Mutation {
-        createUser(address: String!): User!
         setBalance(address: String!, amount: Float!, transaction: String!): Float!
         play(address: String!, bet: Float!, side: String!): GameResult!
         withdraw(address: String!, amount: Float!): User!

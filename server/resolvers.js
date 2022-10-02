@@ -21,11 +21,6 @@ const resolvers = {
         }
     },
     Mutation: {
-        createUser: async (_, {address})=>{
-            const newUser = new User({address})
-            await newUser.save()
-            return newUser
-        },
         setBalance: async (_, {address, amount, transaction}) => {
             const connection = await new Connection(clusterApiUrl(network))
             const transactionStatus = await connection.getTransaction(transaction, {commitment: "confirmed"})
@@ -76,6 +71,7 @@ const resolvers = {
 
             //stats
             user.gamePlayed += 1
+            user.bestWinStreak = Math.max(user.bestWinStreak, user.winStreak)
             side === 'left' ? user.leftSidePlayed += 1 : user.rightSidePlayed += 1
             user.leftSidePlayed > user.rightSidePlayed ? user.favSide = 'left' : user.favSide = 'right'
 

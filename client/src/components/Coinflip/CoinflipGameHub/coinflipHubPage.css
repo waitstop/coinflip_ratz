@@ -6,7 +6,6 @@
   background: #363636;
 }
 .hub-page > h1 {
-  font-family: 'OpenSansPX', sans-serif;
   color: #5B5B56;
   font-size: 4rem;
   text-align: center;
@@ -23,7 +22,6 @@
 .hub-page-container p {
   margin: 0;
   padding: 0;
-  font-family: 'OpenSansPX', sans-serif;
 }
 .hub-page-container h1 {
   font-size: 5rem;
@@ -50,10 +48,6 @@
 }
 .hub-page-container .hub-page-faq {
   padding: 1rem;
-}
-.hub-page-container .hub-page-faq h1,
-.hub-page-container .hub-page-faq h2 {
-  font-family: 'OpenSansPX', sans-serif;
 }
 .hub-page-container .hub-page-faq h1 {
   font-size: 4rem;

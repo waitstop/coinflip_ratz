@@ -4,16 +4,18 @@ import {Rat, RATS} from "./Rat";
 import Button from "../button/Button";
 import CoinflipMenu from "./CoinflipMenu/CoinflipMenu";
 import {CoinflipContext} from "../../../Context/CoinflipContext";
-import {gql, useMutation} from "@apollo/client";
+import {useMutation} from "@apollo/client";
 import {useWallet} from "@solana/wallet-adapter-react";
 import animationLeftWins from "../../../images/animations/left_wins_black.gif"
 import animationRightWins from "../../../images/animations/right_wins_black.gif"
 import animationInit from '../../../images/animations/duel_static.png'
+import loader from '../../../images/loader.png'
 import { motion } from "framer-motion";
 import Box from "../box/Box";
 import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
-
+import './toast.css'
+import {GET_BALANCE, GET_USER_STATS, PLAY_QUERY} from '../Querys'
 
 
 require('./coinflipPage.css')
@@ -24,22 +26,9 @@ function getRandomIntInclusive(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const GET_BALANCE = gql`
-    query UserByAddress($address: String!) {
-        userByAddress(address: $address) {
-            balance
-        }
-    }
-`
 
-const PLAY_QUERY = gql`
-    mutation Play($address: String!, $bet: Float!, $side: String!) {
-        play(address: $address, bet: $bet, side: $side) {
-            newBalance,
-            result
-        }
-    }
-`
+
+
 
 const loadImage = (url: string) => new Promise<string>((resolve, reject) => {
     const img = new Image()
@@ -69,7 +58,7 @@ const CoinflipGamePage: FC = () => {
     const [playQuery] = useMutation(PLAY_QUERY, {
         refetchQueries: [
             {query: GET_BALANCE, variables: {address: publicKey}},
-            'UserByAddress'
+            {query: GET_USER_STATS, variables: {address: publicKey}}
         ]
     })
 
@@ -102,19 +91,23 @@ const CoinflipGamePage: FC = () => {
     }
 
     const handleReady = async () => {
-        toast.info('Game starting...')
-        const rightAnim = await loadImage(animationRightWins+'?clear='+Math.random())
-        const leftAnim = await loadImage(animationLeftWins+'?clear='+Math.random())
-        setAnimationUrl({
-            left: leftAnim,
-            right: rightAnim
-        })
-        setGameState('run')
         if(!(currentBet && currentRat)) return
         if(!(currentBet <= 5 && currentBet >= 0.01)) return
+        toast.info('Game starting...')
+        setIsMenu(false)
+        setGameState('loading')
+        const imgs = await Promise.all([
+            loadImage(animationRightWins+'?clear='+Math.random()),
+            loadImage(animationLeftWins+'?clear='+Math.random())
+        ])
+        setAnimationUrl({
+            left: imgs[1],
+            right: imgs[0]
+        })
 
         playQuery({variables: {address: publicKey, bet: currentBet, side: currentRat}})
             .then((res)=>{
+                setGameState('run')
                 setTimeout(()=>{
                     setBalance(res.data.play.newBalance)
                 },3000)
@@ -156,6 +149,9 @@ const CoinflipGamePage: FC = () => {
     return(
         <CoinflipContext.Provider value={{isMenu, setIsMenu, balance, setBalance}}>
             <ToastContainer
+                className={'custom-toast-container'}
+                toastClassName={'custom-toast'}
+                bodyClassName={'custom-toast-body'}
                 position="bottom-right"
                 autoClose={5000}
                 hideProgressBar={false}
@@ -188,7 +184,29 @@ const CoinflipGamePage: FC = () => {
                                     />
                                 )
                             }
-                            {(gameState !== 'init' && !isMenu) && (
+                            {(gameState === 'loading' && !isMenu) && (
+                                <div
+                                    style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        alignContent: 'center',
+                                        backgroundColor: "#B3DBF3"
+                                    }}
+                                >
+                                    <motion.img
+                                        animate={{rotate: 360}}
+                                        transition={{ repeat: Infinity, repeatDelay: 0.3 , type: "spring"}}
+                                        style={{
+                                            width: "200px"
+                                        }}
+                                        src={loader}
+                                    />
+                                </div>
+                            )}
+                            {(gameState !== 'init' && !isMenu && gameState !== 'loading') && (
                                 <div
                                     style={{
                                         backgroundImage: `url(${winSide === 'left' ? animationsUrl.left:animationsUrl.right}`,

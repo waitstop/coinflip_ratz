@@ -10,7 +10,8 @@ const schema = new Schema({
     favSide: {type: String, default: 'N/A'},
     leftSidePlayed: {type: Number, default: 0},
     rightSidePlayed: {type: Number, default: 0},
-    winStreak: {type: Number, default: 0}
+    winStreak: {type: Number, default: 0},
+    bestWinStreak: {type: Number, default: 0}
 })
 const User = mongoose.model('User', schema, 'users')
 

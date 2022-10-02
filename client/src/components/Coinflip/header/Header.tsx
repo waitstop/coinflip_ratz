@@ -5,6 +5,8 @@ import Button from "../button/Button";
 import Balance from "../balance/Balance";
 import logoHub from '../../../images/logo_game_hub.png'
 import logoGame from '../../../images/logo_back_to_hub.png'
+import discordIcon from '../../../images/discord_icon.svg'
+import twitterIcon from '../../../images/twitter_icon.svg'
 import {CoinflipContext} from "../../../Context/CoinflipContext";
 import {gql, useLazyQuery} from "@apollo/client";
 import {useLocation} from "react-router-dom";
@@ -43,11 +45,7 @@ const Header = () => {
     }, [publicKey, connection, getBalance, setBalance])
 
     return (
-        <div className="header"
-             style={{
-                 justifyContent: currentPath === '/' ? 'space-between':'flex-end'
-             }}
-        >
+        <div className="header">
             {currentPath === '/' && (
                 <a href={"/hub"}>
                     <img
@@ -59,16 +57,21 @@ const Header = () => {
             )}
 
             {currentPath === '/hub' && (
-                <img
-                    className="logo"
-                    src={logoHub}
-                    alt="logo"
-                    style={{
-                        position: 'absolute',
-                        left: '50%',
-                        transform: 'translateX(-50%)'
-                    }}
-                />
+                <>
+                    <div className={'header-social'}>
+                        <a href="https://twitter.com/" target={"_blank"} rel={'noreferrer'}>
+                            <img src={twitterIcon} alt="twitter"/>
+                        </a>
+                        <a href="https://discord.com/" target={"_blank"} rel={'noreferrer'}>
+                            <img src={discordIcon} alt="discord"/>
+                        </a>
+                    </div>
+                    <img
+                        className="logo"
+                        src={logoHub}
+                        alt="logo"
+                    />
+                </>
             )}
 
             <div className="wallet-buttons-container">

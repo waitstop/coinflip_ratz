@@ -1,0 +1,15 @@
+.stats {
+  padding: 1rem;
+  padding-inline: 5rem;
+}
+.stats > div {
+  margin-bottom: 1rem;
+}
+.stats-item {
+  padding: 0.5rem 1rem;
+  font-size: 2.5rem;
+}
+.stats-item b {
+  float: right;
+}
+/*# sourceMappingURL=coinflipStatsMenu.css.map */

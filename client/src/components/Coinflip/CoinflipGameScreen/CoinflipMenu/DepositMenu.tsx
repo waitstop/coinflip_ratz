@@ -1,36 +1,18 @@
 import {useCallback, useContext, useEffect, useState} from "react";
 import {LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction} from "@solana/web3.js";
 import {PUBLIC_ADDRESS_OWNER} from "../../../../config";
-import {gql, useLazyQuery, useMutation} from "@apollo/client";
+import {useLazyQuery, useMutation} from "@apollo/client";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {CoinflipContext} from "../../../../Context/CoinflipContext";
 import Button from "../../button/Button";
 import {toast} from "react-toastify";
+import {GET_BALANCE, SET_BALANCE, WITHDRAW} from "../../Querys";
 
 
 require('./coinflipDepositMenu.css')
 
-const GET_BALANCE = gql`
-    query UserByAddress($address: String!) {
-        userByAddress(address: $address) {
-            balance
-        }
-    }
-`
 
-const SET_BALANCE = gql`
-    mutation SetBalance($address: String!, $amount: Float!, $transaction: String!) {
-        setBalance(address: $address, amount: $amount, transaction: $transaction)
-    }
-`
 
-const WITHDRAW = gql`
-    mutation Withdraw($address: String!, $amount: Float!) {
-        withdraw(address: $address, amount: $amount) {
-            newBalance:balance
-        }
-    }
-`
 
 const DepositMenu = () => {
     const Context = useContext(CoinflipContext)
@@ -101,7 +83,7 @@ const DepositMenu = () => {
         } catch (e) {
             toast.error('Deposit failed')
         }
-    }, [publicKey, sendTransaction, connection, setBdBalance, setBalance])
+    }, [publicKey, sendTransaction, connection, setBdBalance, setBalance, setIsMenu])
 
     const handleWithdraw = () => {
         if(!(currentWithdraw && balance)) return

@@ -8,7 +8,13 @@ import {BD_URI} from "./config";
 
 const client = new ApolloClient({
     uri: BD_URI,
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+        typePolicies: {
+            User: {
+                merge: true
+            }
+        }
+    }),
     link: process.env.NODE_ENV !== "production" ? undefined:createHttpLink({uri: '/graphql'}),
     credentials: process.env.NODE_ENV !== "production" ? undefined:'include'
 })
