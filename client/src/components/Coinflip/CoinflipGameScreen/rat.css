@@ -1,0 +1,88 @@
+.rat {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+}
+.rat .rat-name {
+  font-weight: 600;
+}
+.rat .rat-speech {
+  height: 123px;
+}
+.rat .out-border {
+  border: 4px solid #474747;
+  padding: 4px;
+  background-color: #999999;
+}
+.rat .border {
+  border: 4px inset #BFBFBF;
+  background-color: #999999;
+}
+.rat .hp-bar {
+  transition: all 1s cubic-bezier(0, 0, 0, 1) 0s;
+  height: 1.5em;
+  background-color: #A82020;
+}
+.rat .avatar {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1/1;
+}
+.rat span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  font-family: "OpenSansPX", sans-serif;
+  padding: 0.1em 0.5em;
+  font-size: 2rem;
+}
+.rat .item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  background-color: #848484;
+  width: 25%;
+  height: auto;
+  aspect-ratio: 1/1;
+  border: 4px inset #BFBFBF;
+  overflow: hidden;
+}
+.rat .item-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  border: 4px solid #474747;
+  padding: 4px;
+  background-color: #999999;
+  margin-top: -4px;
+}
+.rat .item > img {
+  transform: scale(0.95);
+  width: 60px;
+  height: 60px;
+}
+@media screen and (max-width: 1700px) {
+  .rat {
+    width: 250px;
+  }
+  .rat .rat-speech {
+    height: 140px;
+  }
+  .rat span {
+    padding: 0.5rem 0.8rem;
+    font-size: 2rem;
+  }
+  .rat .item > img {
+    width: 45px;
+    height: 45px;
+  }
+}
+/*# sourceMappingURL=rat.css.map */

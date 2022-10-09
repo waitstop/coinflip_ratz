@@ -1,4 +1,5 @@
 const User = require("./models/User");
+const Result = require("./models/Result")
 const getResult = require("./api/result");
 const {Keypair, Transaction, SystemProgram, PublicKey, sendAndConfirmTransaction, Connection, clusterApiUrl,
     LAMPORTS_PER_SOL
@@ -18,6 +19,19 @@ const resolvers = {
             const newUser = new User({address: address})
             await newUser.save()
             return newUser
+        },
+        getAllResults: async (_, {limit}) => {
+            const results = await Result.find().limit(limit)
+            const nResuluts = []
+            for (let i = 0; i < results.length; i++) {
+                nResuluts.push({
+                    date: new Date(String(results[i].createdAt).trim(10)).toUTCString(),
+                    address: results[i].address,
+                    result: results[i].result
+                })
+            }
+            console.log(nResuluts);
+            return nResuluts
         }
     },
     Mutation: {
@@ -76,6 +90,11 @@ const resolvers = {
             user.leftSidePlayed > user.rightSidePlayed ? user.favSide = 'left' : user.favSide = 'right'
 
             await user.save()
+
+            //plays
+            const newResult =  await Result.create({address, result, bet})
+            await newResult.save()
+
             return ({address: address, newBalance: user.balance, result: result})
         },
         withdraw: async (_, {address, amount}) => {

@@ -5,6 +5,16 @@
   margin-bottom: 4rem;
   padding-inline: 2rem;
 }
+.coinflip-layout .ready-btn {
+  width: 250px;
+  padding: 1rem 0;
+  font-size: 3rem;
+}
+.coinflip-layout .select-btn {
+  width: 320px;
+  padding: 1rem 0;
+  font-size: 3rem;
+}
 .coinflip-layout > .row {
   margin-top: 1rem;
   gap: 1rem;
@@ -92,5 +102,20 @@
 .reset-screen-wrapper h2 {
   font-weight: normal;
   font-size: 1.8rem;
+}
+@media screen and (max-width: 1700px) {
+  .coinflip-layout .select-btn {
+    width: 250px;
+    padding: 1rem 0;
+    font-size: 2.5rem;
+  }
+  .coinflip-layout .ready-btn {
+    font-size: 2.5rem;
+  }
+  .coinflip-layout .bet-amount-container span,
+  .coinflip-layout .bet-amount-container button,
+  .coinflip-layout .bet-amount-container input {
+    font-size: 2.5rem;
+  }
 }
 /*# sourceMappingURL=coinflipPage.css.map */

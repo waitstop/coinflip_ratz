@@ -4,6 +4,16 @@
     margin-top: 4rem;
     margin-bottom: 4rem;
     padding-inline: 2rem;
+    .ready-btn{
+        width: 250px;
+        padding: 1rem 0;
+        font-size: 3rem;
+    }
+    .select-btn{
+        width: 320px;
+        padding: 1rem 0;
+        font-size: 3rem
+    }
     & > .row {
         margin-top: 1rem;
         gap: 1rem;
@@ -91,5 +101,24 @@
     h2{
         font-weight: normal;
         font-size: 1.8rem;
+    }
+}
+
+
+@media screen and (max-width: 1700px) {
+    .coinflip-layout{
+        .select-btn{
+            width: 250px;
+            padding: 1rem 0;
+            font-size: 2.5rem
+        }
+        .ready-btn{
+            font-size: 2.5rem;
+        }
+        .bet-amount-container{
+            span, button, input{
+                font-size: 2.5rem;
+            }
+        }
     }
 }

@@ -16,6 +16,7 @@ import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 import './toast.css'
 import {GET_BALANCE, GET_USER_STATS, PLAY_QUERY} from '../Querys'
+import CoinflipPlays from "./CoinflipPlays/CoinflipPlays";
 
 
 require('./coinflipPage.css')
@@ -174,9 +175,10 @@ const CoinflipGamePage: FC = () => {
                                 (gameState === 'init' && !isMenu) && (
                                     <div
                                         style={{
+                                            backgroundColor: "#363636",
                                             backgroundImage: `url(${animationInit})`,
                                             backgroundPosition: 'center',
-                                            backgroundSize: 'cover',
+                                            backgroundSize: 'contain',
                                             backgroundRepeat: 'no-repeat',
                                             width: '100%',
                                             height: '100%'
@@ -187,13 +189,13 @@ const CoinflipGamePage: FC = () => {
                             {(gameState === 'loading' && !isMenu) && (
                                 <div
                                     style={{
+                                        backgroundColor: "#B3DBF3",
                                         width: "100%",
                                         height: "100%",
                                         display: 'flex',
                                         justifyContent: 'center',
                                         alignItems: 'center',
                                         alignContent: 'center',
-                                        backgroundColor: "#B3DBF3"
                                     }}
                                 >
                                     <motion.img
@@ -209,9 +211,10 @@ const CoinflipGamePage: FC = () => {
                             {(gameState !== 'init' && !isMenu && gameState !== 'loading') && (
                                 <div
                                     style={{
+                                        backgroundColor: "#363636",
                                         backgroundImage: `url(${winSide === 'left' ? animationsUrl.left:animationsUrl.right}`,
                                         backgroundPosition: 'center',
-                                        backgroundSize: 'cover',
+                                        backgroundSize: 'contain',
                                         backgroundRepeat: 'no-repeat',
                                         width: '100%',
                                         height: '100%',
@@ -287,12 +290,12 @@ const CoinflipGamePage: FC = () => {
 
                 <div className="row">
                     <Button
+                        className={"select-btn"}
                         disabled={gameState !== 'init' || !publicKey}
                         onClick={()=>setCurrentRat('left')}
                         style={{
                             backgroundColor: currentRat === 'left' ? '#6D6D6D':'#999999',
-                            border: currentRat === 'left' ? '0.1em outset #999999':'0.1em outset #BFBFBF',
-                            width: '320px', padding: '1rem 0', fontSize: '3rem'
+                            border: currentRat === 'left' ? '0.1em outset #999999':'0.1em outset #BFBFBF'
                         }}
                     >
                         {currentRat === 'left'?'Selected':'Select'}
@@ -311,23 +314,19 @@ const CoinflipGamePage: FC = () => {
                         </div>
                     </div>
                     <Button
+                        className={'ready-btn'}
                         disabled={gameState !== 'init' || !currentRat || !publicKey}
-                        style={{
-                            width: '250px',
-                            padding: '1rem 0',
-                            fontSize: '3rem',
-                        }}
                         onClick={handleReady}
                     >
                         Ready
                     </Button>
                     <Button
+                        className={"select-btn"}
                         disabled={gameState !== 'init' || !publicKey}
                         onClick={()=>setCurrentRat('right')}
                         style={{
                             backgroundColor: currentRat === 'right' ? '#6D6D6D':'#999999',
-                            border: currentRat === 'right' ? '0.1em outset #999999':'0.1em outset #BFBFBF',
-                            width: '320px', padding: '1rem 0', fontSize: '3rem'
+                            border: currentRat === 'right' ? '0.1em outset #999999':'0.1em outset #BFBFBF'
                         }}
                     >
                         {currentRat === 'right'?'Selected':'Select'}
@@ -338,6 +337,10 @@ const CoinflipGamePage: FC = () => {
                     <span>Select a rat you would like to bet on by pressing <strong>select</strong> buttons on the sides</span>
                     <span>Put amount of sol you would like to bet in the field <strong>(0.01 sol min. - 5  sol max.)</strong></span>
                     <span><strong>Press ready</strong> and test your luck watching fellow ratz injuring each other because of your greed </span>
+                </div>
+
+                <div className={'row plays'}>
+                    <CoinflipPlays/>
                 </div>
             </div>
         </CoinflipContext.Provider>

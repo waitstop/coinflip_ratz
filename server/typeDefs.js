@@ -19,8 +19,15 @@ const typeDefs = gql`
         newBalance: Float!,
         result: String!
     }
+    type Result {
+        address: String!,
+        result: String!,
+        date: String!,
+        bet: Float!
+    }
     type Query {
-        userByAddress(address: String!): User!
+        userByAddress(address: String!): User!,
+        getAllResults(limit: Int!):[Result!]!,
     }
     type Mutation {
         setBalance(address: String!, amount: Float!, transaction: String!): Float!

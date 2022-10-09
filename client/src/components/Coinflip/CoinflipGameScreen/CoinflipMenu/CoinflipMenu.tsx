@@ -44,15 +44,17 @@ const CoinflipMenu = () => {
                     >
                         stats
                     </Button>
-                    <Button
-                        style={{
-                            backgroundColor: currentMenu === 2 ? '#6D6D6D' : '#999999',
-                            border: currentMenu === 2 ? '0.1em outset #999999':'0.1em outset #BFBFBF',
-                        }}
-                        onClick={()=>setCurrentMenu(2)}
-                    >
-                        history
-                    </Button>
+                    {/*<Button*/}
+                    {/*    hintText={"Coming soon..."}*/}
+                    {/*    disabled*/}
+                    {/*    style={{*/}
+                    {/*        backgroundColor: currentMenu === 2 ? '#6D6D6D' : '#999999',*/}
+                    {/*        border: currentMenu === 2 ? '0.1em outset #999999':'0.1em outset #BFBFBF',*/}
+                    {/*    }}*/}
+                    {/*    onClick={()=>setCurrentMenu(2)}*/}
+                    {/*>*/}
+                    {/*    history*/}
+                    {/*</Button>*/}
                 </div>
                 <Button onClick={()=> {
                     if(!setIsMenu) return
