@@ -38,27 +38,49 @@
   outline: 0.03em solid #474747;
 }
 .wallet-adapter-dropdown-list {
-  background: var(--darkColor1);
+  width: 180px;
+  background: #999999;
+  border-radius: 0;
+  border: 3px solid #474747;
 }
 .wallet-adapter-dropdown-list > li {
+  border: 4px inset #BFBFBF;
+  border-radius: 0;
   font-family: "OpenSansPX", sans-serif;
   font-size: 1rem;
+  color: black;
+}
+.wallet-adapter-dropdown-list > li:hover {
+  border: 3px outset #999999 !important;
+  background: #6d6d6d !important;
 }
 .custom-wallet-modal .wallet-adapter-modal-wrapper {
-  background: var(--darkColor1);
+  background: #999999;
+  border: 4px inset #BFBFBF;
+  border-radius: 0;
+}
+.custom-wallet-modal .wallet-adapter-modal-wrapper * {
+  font-family: "OpenSansPX", sans-serif;
+  color: black;
 }
 .custom-wallet-modal .wallet-adapter-modal-wrapper .wallet-adapter-modal-title {
-  font-family: "OpenSansPX", sans-serif;
   font-size: 2rem;
 }
 .custom-wallet-modal .wallet-adapter-modal-wrapper .wallet-adapter-modal-list > li > button {
-  font-family: "OpenSansPX", sans-serif;
   font-size: 1.5rem;
 }
 .custom-wallet-modal .wallet-adapter-modal-wrapper .wallet-adapter-modal-list > li > button > span {
-  font-size: 1rem;
+  font-size: 1.5rem;
+}
+.custom-wallet-modal .wallet-adapter-modal-wrapper .wallet-adapter-button:hover {
+  background: #6d6d6d !important;
 }
 .custom-wallet-modal .wallet-adapter-modal-wrapper .wallet-adapter-modal-button-close {
-  background: var(--darkColor2);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+.custom-wallet-modal .wallet-adapter-modal-wrapper .wallet-adapter-modal-button-close svg {
+  fill: black;
 }
 /*# sourceMappingURL=wallet.css.map */

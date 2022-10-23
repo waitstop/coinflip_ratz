@@ -29,8 +29,7 @@ body {
   font-family: 'OpenSansPX', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  background-color: var(--bgColor)
+  background-color: var(--bgColor);
 }
 
 code {
@@ -62,4 +61,23 @@ code {
 
 [data-hint]:hover::after {
   opacity: 1;
+}
+
+
+/* Работает в Chrome, Edge и Safari */
+*::-webkit-scrollbar {
+  width: 32px;
+  border: 4px solid transparent;
+}
+
+*::-webkit-scrollbar-track {
+  background: #999999;
+  border: 2px inset #BFBFBF;
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb {
+  width: 50%;
+  background-color: #999999;
+  border: 2px outset #BFBFBF;
 }

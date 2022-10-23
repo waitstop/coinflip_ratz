@@ -15,7 +15,7 @@ import Box from "../box/Box";
 import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 import './toast.css'
-import {GET_BALANCE, GET_USER_STATS, PLAY_QUERY} from '../Querys'
+import {GET_BALANCE, GET_GAME_HISTORY, GET_USER_STATS, PLAY_QUERY} from '../Querys'
 import CoinflipPlays from "./CoinflipPlays/CoinflipPlays";
 
 
@@ -59,7 +59,8 @@ const CoinflipGamePage: FC = () => {
     const [playQuery] = useMutation(PLAY_QUERY, {
         refetchQueries: [
             {query: GET_BALANCE, variables: {address: publicKey}},
-            {query: GET_USER_STATS, variables: {address: publicKey}}
+            {query: GET_USER_STATS, variables: {address: publicKey}},
+            {query: GET_GAME_HISTORY, variables: {limit: 5}}
         ]
     })
 
@@ -301,7 +302,8 @@ const CoinflipGamePage: FC = () => {
                         {currentRat === 'left'?'Selected':'Select'}
                     </Button>
                     <div className={'bet-amount-container'}>
-                        <span>Place a bet: </span>
+                        <span className={"bet-description"}>Place a bet: </span>
+                        <span className={"bet-description-min"}>Bet: </span>
                         <div className={'bet-input-wrapper'}>
                             <div className="bet-min-max-buttons">
                                 <button onClick={()=>setCurrentBet(0.01)}>min</button>

@@ -47,6 +47,9 @@
 .coinflip-layout .bet-amount-container input {
   font-size: 3rem;
 }
+.coinflip-layout .bet-amount-container .bet-description-min {
+  display: none;
+}
 .coinflip-layout .bet-amount-container input {
   text-align: right;
   width: 100px;
@@ -116,6 +119,12 @@
   .coinflip-layout .bet-amount-container button,
   .coinflip-layout .bet-amount-container input {
     font-size: 2.5rem;
+  }
+  .coinflip-layout .bet-amount-container .bet-description {
+    display: none;
+  }
+  .coinflip-layout .bet-amount-container .bet-description-min {
+    display: block;
   }
 }
 /*# sourceMappingURL=coinflipPage.css.map */

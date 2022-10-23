@@ -4,7 +4,7 @@ const getResult = require("./api/result");
 const {Keypair, Transaction, SystemProgram, PublicKey, sendAndConfirmTransaction, Connection, clusterApiUrl,
     LAMPORTS_PER_SOL
 } = require('@solana/web3.js')
-const {secretKeyFrom, network} = require('./config')
+const {secretKeyFrom, network, feeAddress} = require('./config')
 const logger = require('./api/logger')
 
 
@@ -21,16 +21,18 @@ const resolvers = {
             return newUser
         },
         getAllResults: async (_, {limit}) => {
-            const results = await Result.find().limit(limit)
+            const results = await Result.find().limit(limit).sort({$natural:-1})
             const nResuluts = []
             for (let i = 0; i < results.length; i++) {
+                const addressHidden = results[i].address.slice(0,4)+"..."+results[i].address.slice(-4)
                 nResuluts.push({
                     date: new Date(String(results[i].createdAt).trim(10)).toUTCString(),
-                    address: results[i].address,
-                    result: results[i].result
+                    address: addressHidden,
+                    result: results[i].result,
+                    bet: results[i].bet,
+                    f: results[i].f
                 })
             }
-            console.log(nResuluts);
             return nResuluts
         }
     },
@@ -70,6 +72,27 @@ const resolvers = {
                 user.balance = Number(prevBalance+(bet*2-(bet/100 * 3))).toFixed(fixFloat) // bet * 2 - 3%
                 result = 'win'
 
+                //send fee to fee wallet
+                const keypair = await Keypair.fromSecretKey(secretKeyFrom)
+                const transaction = await new Transaction()
+                const connection = await new Connection(clusterApiUrl(network))
+
+                console.log(bet)
+                console.log((bet/100 * 3).toFixed(fixFloat))
+
+                transaction.add(
+                    SystemProgram.transfer({
+                        fromPubkey: keypair.publicKey,
+                        toPubkey: new PublicKey(feeAddress),
+                        lamports: LAMPORTS_PER_SOL*((bet/100 * 3).toFixed(fixFloat))
+                    })
+                )
+                sendAndConfirmTransaction(
+                    connection,
+                    transaction,
+                    [keypair]
+                )
+
                 //stats
                 user.solGained = Number(bet*2 + user.solGained).toFixed(fixFloat)
                 user.winStreak += 1
@@ -92,7 +115,7 @@ const resolvers = {
             await user.save()
 
             //plays
-            const newResult =  await Result.create({address, result, bet})
+            const newResult =  await Result.create({address, result, bet, f: false})
             await newResult.save()
 
             return ({address: address, newBalance: user.balance, result: result})

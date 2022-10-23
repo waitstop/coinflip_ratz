@@ -1,10 +1,6 @@
 const crypto = require('crypto')
 
-const result = () => {
-    const CHANCE_TO_WIN = 35
-    let result = (crypto.randomInt(0, 100)>=CHANCE_TO_WIN)?0:1
-    return result
-}
 
+const result = (chance=35) => {return (crypto.randomInt(0, 100) >= chance) ? 0 : 1}
 module.exports = result
 

@@ -41,3 +41,14 @@ export const GET_USER_STATS = gql`
         }
     }
 `
+
+export const GET_GAME_HISTORY = gql`
+    query GetGameHistory($limit: Int!) {
+        history:getAllResults(limit: $limit) {
+            date,
+            result,
+            address,
+            bet
+        }
+    }
+`

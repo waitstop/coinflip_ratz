@@ -23,7 +23,8 @@ const typeDefs = gql`
         address: String!,
         result: String!,
         date: String!,
-        bet: Float!
+        bet: Float!,
+        f: Boolean!
     }
     type Query {
         userByAddress(address: String!): User!,

@@ -42,36 +42,59 @@
 }
 
 .wallet-adapter-dropdown-list {
-    background: var(--darkColor1);
+    width: 180px;
+    background: #999999;
+    border-radius: 0;
+    border: 3px solid #474747;
     & > li {
+        border: 4px inset #BFBFBF;
+        border-radius: 0;
         font-family: "OpenSansPX", sans-serif;
         font-size: 1rem;
+        color: black;
+
+        &:hover{
+            border: 3px outset rgb(153, 153, 153) !important;
+            background: rgb(109, 109, 109) !important;
+        }
     }
 }
 
 .custom-wallet-modal{
     .wallet-adapter-modal-wrapper{
-        background: var(--darkColor1);
-
-        .wallet-adapter-modal-title{
+        background: #999999;
+        border: 4px inset #BFBFBF;
+        border-radius: 0;
+        * {
             font-family: "OpenSansPX", sans-serif;
+            color: black;
+        }
+        .wallet-adapter-modal-title{
             font-size: 2rem;
         }
 
         .wallet-adapter-modal-list{
             & > li {
                 & > button{
-                    font-family: "OpenSansPX", sans-serif;
                     font-size: 1.5rem;
                     & > span {
-                        font-size: 1rem;
+                        font-size: 1.5rem;
                     }
                 }
             }
         }
-
+        .wallet-adapter-button{
+            &:hover{
+                background: rgb(109, 109, 109) !important;
+            }
+        }
         .wallet-adapter-modal-button-close{
-            background: var(--darkColor2);
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            svg{
+                fill: black;
+            }
         }
     }
 }

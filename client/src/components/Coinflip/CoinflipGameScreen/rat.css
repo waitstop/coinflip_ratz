@@ -75,6 +75,10 @@
   }
   .rat .rat-speech {
     height: 140px;
+    font-size: 1.8rem;
+  }
+  .rat .rat-name {
+    font-size: 1.8rem;
   }
   .rat span {
     padding: 0.5rem 0.8rem;

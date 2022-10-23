@@ -4,6 +4,8 @@ const cors = require('cors')
 const typeDefs = require('./typeDefs')
 const resolvers = require('./resolvers')
 const mongoose = require("mongoose");
+const cron = require("node-cron")
+const generateFakeResults = require("./cron-tasks/fakeResults");
 
 
 const startServer = async () => {
@@ -28,6 +30,10 @@ const startServer = async () => {
     apolloServer.applyMiddleware({app})
 
     app.listen(PORT, ()=>{console.log(`Server started on port ${PORT}`)})
+
+    /*cron.schedule('*!/10 * * * *', async ()=>{
+        await generateFakeResults()
+    })*/
 }
 
 startServer()
