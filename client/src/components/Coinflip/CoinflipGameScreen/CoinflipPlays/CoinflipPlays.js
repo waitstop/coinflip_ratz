@@ -21,10 +21,35 @@ const CoinflipPlays = () => {
     const [getHistory] = useLazyQuery(GET_GAME_HISTORY)
     const [history, setHistory] = useState([])
     useEffect(() => {
+
         getHistory({variables: {limit: 5}})
             .then(res => {
-                setHistory(res.data.history)
+                const newHistory = []
+                for (let i = 0; i < res.data.history.length; i++) {
+                    newHistory.push({
+                        ...res.data.history[i],
+                        title: res.data.history[i].result === "win" ? winStrings[randomNumber(0, winStrings.length)]:loseStrings[randomNumber(0, loseStrings.length)]
+                    })
+                }
+                setHistory(newHistory)
             })
+
+        const interval = setInterval(()=>{
+            getHistory({variables: {limit: 5}})
+                .then(res => {
+                    const newHistory = []
+                    for (let i = 0; i < res.data.history.length; i++) {
+                        newHistory.push({
+                            ...res.data.history[i],
+                            title: res.data.history[i].result === "win" ? winStrings[randomNumber(0, winStrings.length)]:loseStrings[randomNumber(0, loseStrings.length)]
+                        })
+                    }
+                    setHistory(newHistory)
+                })
+        }, 10000)
+
+        return () => clearInterval(interval)
+
     }, []);
 
     return (
@@ -36,7 +61,7 @@ const CoinflipPlays = () => {
                         <p>
                             Wallet ({el.address})
                             bet <b>{el.bet} sol </b>
-                            and <b>{el.result === "win" ? winStrings[randomNumber(0, winStrings.length)] : loseStrings[randomNumber(0, loseStrings.length)]}</b>.
+                            and <b>{el.title}</b>.
                         </p>
                         <span>
                     {

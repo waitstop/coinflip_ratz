@@ -6,46 +6,6 @@
     "auditLog": "logs\\.e56efcfce130566a2d507faa61afbee7e956d66f-audit.json",
     "files": [
         {
-            "date": 1664113547970,
-            "name": "logs\\log-25-09-2022.log",
-            "hash": "03d9801cc92ab8be65c4e55b5505d99e6fe6eba2e0f16c20fe5b61ef918acebf"
-        },
-        {
-            "date": 1664148489122,
-            "name": "logs\\log-26-09-2022.log",
-            "hash": "dd5cd0a07e6a410884f89251d6a0c1687130df28205ed22b3f3814533a5a24ea"
-        },
-        {
-            "date": 1664237441272,
-            "name": "logs\\log-27-09-2022.log",
-            "hash": "3665876c237f3cc0ed98a54444fc4d7e101a07cd53fcd2ac31cf62fe3d9a3b2e"
-        },
-        {
-            "date": 1664531520167,
-            "name": "logs\\log-30-09-2022.log",
-            "hash": "061e68736e9cf46e87af95f8be8ba2591e91d58142d64e3d3ceeb7ab953313ed"
-        },
-        {
-            "date": 1664578617102,
-            "name": "logs\\log-01-10-2022.log",
-            "hash": "d6778624cb065d6c9e7d9bedd4e85c3615addd5c3ac4b99c7e40c2aeff745e83"
-        },
-        {
-            "date": 1664690198936,
-            "name": "logs\\log-02-10-2022.log",
-            "hash": "3874f90626e7f328e0bac75ec2d6b9ebe738e4ae5756d85c818c3e51490d9183"
-        },
-        {
-            "date": 1665255508967,
-            "name": "logs\\log-08-10-2022.log",
-            "hash": "d6314983bdfa673a9b2c40a06c542c7dcc3cffe2e9ae4e14b378d7735c933274"
-        },
-        {
-            "date": 1665324920461,
-            "name": "logs\\log-09-10-2022.log",
-            "hash": "72fd02d5f485e5621e3217df282711a9ff36deceb06eb3e422c88777bd9b1454"
-        },
-        {
             "date": 1665414964835,
             "name": "logs\\log-10-10-2022.log",
             "hash": "09b0af067db4581143a3e70e9dcdc442213b0a0ac354b1946acee2c3d4b9ecba"
@@ -59,6 +19,16 @@
             "date": 1666511615226,
             "name": "logs\\log-23-10-2022.log",
             "hash": "e4fc798f667444826d0352ca08d9d36876cf55a3a3c9e75004be180cdafc1005"
+        },
+        {
+            "date": 1667768157910,
+            "name": "logs\\log-06-11-2022.log",
+            "hash": "a15f22ccbca907224fa7791cce1bb5f3d453b58d8b4d532ec6195b5ecdd13eca"
+        },
+        {
+            "date": 1668017224180,
+            "name": "logs\\log-09-11-2022.log",
+            "hash": "96e58f13e187a993aa6b963fa8eb6ca1aa4044dcabbb62be031589fd5224b254"
         }
     ],
     "hashType": "sha256"

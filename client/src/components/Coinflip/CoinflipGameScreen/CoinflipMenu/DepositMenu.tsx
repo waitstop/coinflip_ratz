@@ -64,11 +64,11 @@ const DepositMenu = () => {
             })
         )
 
-        const {
+        let {
             context: {slot: minContextSlot},
             value: {blockhash, lastValidBlockHeight}
         } = await connection.getLatestBlockhashAndContext()
-
+        lastValidBlockHeight += 150
         try {
             const signature = await sendTransaction(transaction, connection, {minContextSlot})
             await connection.confirmTransaction({blockhash, lastValidBlockHeight, signature})
